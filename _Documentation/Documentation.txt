@@ -1,0 +1,8 @@
+﻿Solution: Demo_PersistenceFileStream
+Author: John E Velis
+Created: 11/5/2015
+Last Modified: 10/10/2016
+
+Project: Demo_PersistenceFileStream.SimpleText
+Description: Simple reading and writing using ReadAllText and WriteAllText
+
