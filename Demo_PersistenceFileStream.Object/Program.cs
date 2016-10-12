@@ -19,7 +19,6 @@ namespace Demo_PersistenceFileStream
 
             Console.WriteLine("\nPress any key to exit.");
             Console.ReadKey();
-
         }
 
         static void ObjectListReadWrite(string dataFile)
