@@ -11,53 +11,26 @@ namespace Demo_PersistenceFileStream
     {
         static void Main(string[] args)
         {
-            DisplayMenu();
-
             string textFilePath = "Data\\Data.txt";
-
-            ObjectListReadWrite(textFilePath);
-
-            Console.WriteLine("\nPress any key to exit.");
-            Console.ReadKey();
-
-        }
-
-        static void ObjectListReadWrite(string dataFile)
-        {
             List<HighScore> highScoresClassListWrite = new List<HighScore>();
+            List<string> highScoresStringListRead = new List<string>();
+            int menuSelection = 0;
 
-            List<string> highScoresStringListRead = new List<string>(); ;
-            List<HighScore> highScoresClassListRead = new List<HighScore>(); ;
+            // initialize high scores and write to text file
+            InitializeHighScores(textFilePath);
 
-            string highScoreString;
-
-            // initialize a list of HighScore objects
-            highScoresClassListWrite = InitializeListOfHighScores();
-
-            Console.WriteLine("The following high scores will be added to Data.txt.\n");
-            // display list of high scores objects
-            DisplayHighScores(highScoresClassListWrite);
-
-            Console.WriteLine("\nAdd high scores to text file. Press any key to continue.\n");
-            Console.ReadKey();
-
-            // build the list of strings and write to the text file line by line
-            WriteHighScoresToTextFile(highScoresClassListWrite, dataFile);
-
-            Console.WriteLine("High scores added successfully.\n");
-
-            Console.WriteLine("Read into a string of HighScore and display the high scores from data file. Press any key to continue.\n");
-            Console.ReadKey();
+            while (true)
+            {
+                DisplayMenu(textFilePath);
+            }
 
 
-            // build the list of HighScore class objects from the list of strings
-            highScoresClassListRead = ReadHighScoresFromTextFile(dataFile);
 
-            // display list of high scores objects
-            DisplayHighScores(highScoresClassListRead);
+
         }
 
-        static List<HighScore> InitializeListOfHighScores()
+
+        static void InitializeHighScores(string textFilePath)
         {
             List<HighScore> highScoresClassList = new List<HighScore>();
 
@@ -67,7 +40,7 @@ namespace Demo_PersistenceFileStream
             highScoresClassList.Add(new HighScore() { PlayerName = "Jeff", PlayerScore = 867 });
             highScoresClassList.Add(new HighScore() { PlayerName = "Charlie", PlayerScore = 2309 });
 
-            return highScoresClassList;
+            WriteHighScoresToTextFile(highScoresClassList, textFilePath);
         }
 
         static void DisplayHighScores(List<HighScore> highScoreClassList)
@@ -76,6 +49,9 @@ namespace Demo_PersistenceFileStream
             {
                 Console.WriteLine("Player: {0}\tScore: {1}", player.PlayerName, player.PlayerScore);
             }
+
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey(true);
         }
 
         static void WriteHighScoresToTextFile(List<HighScore> highScoreClassLIst, string dataFile)
@@ -116,40 +92,118 @@ namespace Demo_PersistenceFileStream
             return highScoresClassList;
         }
 
-        static void DisplayMenu()
+        static void DisplayMenu(string path)
         {
+            int selection;
             ConsoleMenu view = new ConsoleMenu(120, 40);
 
-            bool inMenu = true;
+            //display menu
+            view.DrawMenu(28, 15, new List<string>() { "1. Display All Records", "2. Add a Record", "3. Delete a Record", "4. Update a Record", "5. Clear all Records", "6. Exit" });
 
-            while (inMenu)
+            //get user choice
+            switch (Console.ReadKey(true).Key)
             {
-                //display menu
-                view.DrawMenu(28, 15, new List<string>() { "1. Display All Records", "2. Add a Record", "3. Delete a Record", "4. Update a Record", "5. Clear all Records", "6. Exit" });
+                case ConsoleKey.D1:
+                    DisplayAllRecords(path);
+                    break;
+                case ConsoleKey.D2:
+                    selection = 2;
+                    break;
+                case ConsoleKey.D3:
+                    DeleteRecord(path, view);
+                    break;
+                case ConsoleKey.D4:
+                    UpdateRecord(path, view);
+                    break;
+                case ConsoleKey.D5:
+                    selection = 5;
+                    break;
+                case ConsoleKey.D6:
+                    Environment.Exit(1);
+                    break;
+                default:
+                    break;
+            }
+        }
 
-                //get user choice
-                switch (Console.ReadKey(true).Key)
+        static void DisplayAllRecords(string path)
+        {
+            //open file
+            List<HighScore> scores = ReadHighScoresFromTextFile(path);
+
+            Console.Clear();
+
+            DisplayHighScores(scores);
+        }
+
+        static void DeleteRecord(string path, ConsoleMenu view)
+        {
+            //read file
+            List<HighScore> scores = ReadHighScoresFromTextFile(path);
+
+            //prompt user to delete a score
+            view.DrawPromptBox("Who's score to delete?");
+            string response = Console.ReadLine();
+
+            //remove player score
+            scores.RemoveAll(score => score.PlayerName == response);
+
+            //update file
+            WriteHighScoresToTextFile(scores, path);
+        }
+
+        static void UpdateRecord(string path, ConsoleMenu view)
+        {
+            int newScore;
+            bool playerFound = false;
+
+            //read file
+            List<HighScore> scores = ReadHighScoresFromTextFile(path);
+
+            //prompt user to delete a score
+            view.DrawPromptBox("Who's score to update?");
+            string response = Console.ReadLine();
+
+            foreach (HighScore score in scores)
+            {
+                if (score.PlayerName == response)
+                    playerFound = true;
+            }
+
+            if (playerFound)
+            {
+                string score;
+
+                view.DrawPromptBox("Enter new score:");
+                score = Console.ReadLine();
+
+                while (!Int32.TryParse(score, out newScore))
                 {
-                    case ConsoleKey.D1:
-                        break;
-                    case ConsoleKey.D2:
-                        break;
-                    case ConsoleKey.D3:
-                        break;
-                    case ConsoleKey.D4:
-                        break;
-                    case ConsoleKey.D5:
-                        break;
-                    case ConsoleKey.D6:
-                        break;
-                    default:
-                        break;
+                    view.DrawPromptBox("Enter a valid score:");
+                    score = Console.ReadLine();
+                }
+                
+            }
+            else
+            {
+                Console.Clear();
+                Console.CursorVisible = false;
+                view.DrawTextBox("No player found with that name. Press any key to continue.");
+                Console.ReadKey(true);
+                return;
+            }
+
+            //update score
+            foreach (HighScore score in scores)
+            {
+                if (score.PlayerName == response)
+                {
+                    score.PlayerScore = newScore;
                 }
             }
 
-            
+            //update file
+            WriteHighScoresToTextFile(scores, path);
         }
     }
-
-
 }
