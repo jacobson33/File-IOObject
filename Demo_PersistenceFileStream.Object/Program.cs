@@ -12,9 +12,6 @@ namespace Demo_PersistenceFileStream
         static void Main(string[] args)
         {
             string textFilePath = "Data\\Data.txt";
-            List<HighScore> highScoresClassListWrite = new List<HighScore>();
-            List<string> highScoresStringListRead = new List<string>();
-            int menuSelection = 0;
 
             // initialize high scores and write to text file
             InitializeHighScores(textFilePath);
@@ -22,11 +19,7 @@ namespace Demo_PersistenceFileStream
             while (true)
             {
                 DisplayMenu(textFilePath);
-            }
-
-
-
-
+            }           
         }
 
 
@@ -102,7 +95,6 @@ namespace Demo_PersistenceFileStream
 
         static void DisplayMenu(string path)
         {
-            int selection;
             ConsoleMenu view = new ConsoleMenu(120, 40);
 
             //display menu
@@ -115,7 +107,6 @@ namespace Demo_PersistenceFileStream
                     DisplayAllRecords(path);
                     break;
                 case ConsoleKey.D2:
-                    selection = 2;
                     break;
                 case ConsoleKey.D3:
                     DeleteRecord(path, view);
@@ -124,7 +115,7 @@ namespace Demo_PersistenceFileStream
                     UpdateRecord(path, view);
                     break;
                 case ConsoleKey.D5:
-                    selection = 5;
+                    WriteHighScoresToTextFile(new List<HighScore>(), path);
                     break;
                 case ConsoleKey.D6:
                     Environment.Exit(1);
