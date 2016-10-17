@@ -75,7 +75,15 @@ namespace Demo_PersistenceFileStream
             List<HighScore> highScoresClassList = new List<HighScore>();
 
             // read each line and put it into an array and convert the array to a list
-            highScoresStringList = File.ReadAllLines(dataFile).ToList();
+            try
+            {
+                highScoresStringList = File.ReadAllLines(dataFile).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
 
             foreach (string highScoreString in highScoresStringList)
             {
