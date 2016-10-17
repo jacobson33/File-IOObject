@@ -23,10 +23,6 @@ namespace Demo_PersistenceFileStream
             {
                 DisplayMenu(textFilePath);
             }
-
-
-
-
         }
 
 
@@ -92,40 +88,48 @@ namespace Demo_PersistenceFileStream
             return highScoresClassList;
         }
 
+        /// <summary>
+        /// Display The Menu
+        /// </summary>
+        /// <param name="path"></param>
         static void DisplayMenu(string path)
         {
             int selection;
             ConsoleMenu view = new ConsoleMenu(120, 40);
 
-            //display menu
-            view.DrawMenu(28, 15, new List<string>() { "1. Display All Records", "2. Add a Record", "3. Delete a Record", "4. Update a Record", "5. Clear all Records", "6. Exit" });
+                //display menu
+                view.DrawMenu(28, 15, new List<string>() { "1. Display All Records", "2. Add a Record", "3. Delete a Record", "4. Update a Record", "5. Clear all Records", "6. Exit" });
 
-            //get user choice
-            switch (Console.ReadKey(true).Key)
-            {
-                case ConsoleKey.D1:
+                //get user choice
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.D1:
                     DisplayAllRecords(path);
-                    break;
-                case ConsoleKey.D2:
+                        break;
+                    case ConsoleKey.D2:
                     selection = 2;
-                    break;
-                case ConsoleKey.D3:
+                        break;
+                    case ConsoleKey.D3:
                     DeleteRecord(path, view);
-                    break;
-                case ConsoleKey.D4:
+                        break;
+                    case ConsoleKey.D4:
                     UpdateRecord(path, view);
-                    break;
-                case ConsoleKey.D5:
+                        break;
+                    case ConsoleKey.D5:
                     selection = 5;
-                    break;
-                case ConsoleKey.D6:
+                        break;
+                    case ConsoleKey.D6:
                     Environment.Exit(1);
-                    break;
-                default:
-                    break;
-            }
+                        break;
+                    default:
+                        break;
+                }
         }
 
+        /// <summary>
+        /// Display All Records
+        /// </summary>
+        /// <param name="path"></param>
         static void DisplayAllRecords(string path)
         {
             //open file
@@ -136,6 +140,11 @@ namespace Demo_PersistenceFileStream
             DisplayHighScores(scores);
         }
 
+        /// <summary>
+        /// Delete all records
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="view"></param>
         static void DeleteRecord(string path, ConsoleMenu view)
         {
             //read file
@@ -152,6 +161,11 @@ namespace Demo_PersistenceFileStream
             WriteHighScoresToTextFile(scores, path);
         }
 
+        /// <summary>
+        /// Update all records
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="view"></param>
         static void UpdateRecord(string path, ConsoleMenu view)
         {
             int newScore;
@@ -176,7 +190,7 @@ namespace Demo_PersistenceFileStream
 
                 view.DrawPromptBox("Enter new score:");
                 score = Console.ReadLine();
-
+            
                 while (!Int32.TryParse(score, out newScore))
                 {
                     view.DrawPromptBox("Enter a valid score:");
