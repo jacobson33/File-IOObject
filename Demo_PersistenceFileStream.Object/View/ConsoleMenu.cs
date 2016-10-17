@@ -69,7 +69,7 @@ namespace Demo_PersistenceFileStream
             Console.WindowWidth = _WIDTH;
             Console.BufferWidth = _WIDTH;
             Console.WindowHeight = _HEIGHT;
-            Console.BufferHeight = _HEIGHT;
+            Console.BufferHeight = _HEIGHT;            
         }
 
         #endregion

@@ -11,7 +11,7 @@ namespace Demo_PersistenceFileStream
     {
         static void Main(string[] args)
         {
-            GetMenuChoice();
+            DisplayMenu();
 
             string textFilePath = "Data\\Data.txt";
 
@@ -117,38 +117,36 @@ namespace Demo_PersistenceFileStream
 
         static void DisplayMenu()
         {
-            Console.Clear();
-            Console.WriteLine("1. Display All Records");
-            Console.WriteLine("2. Add a Record");
-            Console.WriteLine("3. Delete a Record");
-            Console.WriteLine("4. Update a Record");
-            Console.WriteLine("5. Clear All Records");
-            Console.WriteLine("6. Exit");
-        }
+            ConsoleMenu view = new ConsoleMenu(120, 40);
 
-        static int GetMenuChoice()
-        {
-            DisplayMenu();
+            bool inMenu = true;
 
-            switch (Console.ReadKey(true).Key)
+            while (inMenu)
             {
-                case ConsoleKey.D0:
-                    break;
-                case ConsoleKey.D1:
-                    break;
-                case ConsoleKey.D2:
-                    break;
-                case ConsoleKey.D3:
-                    break;
-                case ConsoleKey.D4:
-                    break;
-                case ConsoleKey.D5:
-                    break;
-                case ConsoleKey.D6:
-                    break;
-                default:
-                    break;
+                //display menu
+                view.DrawMenu(28, 15, new List<string>() { "1. Display All Records", "2. Add a Record", "3. Delete a Record", "4. Update a Record", "5. Clear all Records", "6. Exit" });
+
+                //get user choice
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.D1:
+                        break;
+                    case ConsoleKey.D2:
+                        break;
+                    case ConsoleKey.D3:
+                        break;
+                    case ConsoleKey.D4:
+                        break;
+                    case ConsoleKey.D5:
+                        break;
+                    case ConsoleKey.D6:
+                        break;
+                    default:
+                        break;
+                }
             }
+
+            
         }
     }
 
