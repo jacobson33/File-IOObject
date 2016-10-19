@@ -101,11 +101,9 @@ namespace Demo_PersistenceFileStream
             l--;
 
             if (horizontal) //Horizontal
-                for (int i = 0; i < l; i++)
-                    WriteAt(x + i, y, c);
+                for (int i = 0; i < l; i++) WriteAt(x + i, y, c);
             else    //Vertical
-                for (int i = 0; i < l; i++)
-                    WriteAt(x, y + i, c);
+                for (int i = 0; i < l; i++) WriteAt(x, y + i, c);
         }
 
         /// <summary>
@@ -164,10 +162,10 @@ namespace Demo_PersistenceFileStream
         {
             //█, ═, ║, ╩, ╦, ╠, ╣, ╔, ╗, ╚, ╝, ╬
 
-            if (rowNum <= 0) rowNum++;
-            if (colNum <= 0) colNum++;
-            if (cellWidth <= 0) cellWidth++;
-            if (cellHeight <= 0) cellHeight++;
+            rowNum = Math.Abs(rowNum);
+            colNum = Math.Abs(colNum);
+            cellWidth = Math.Abs(cellWidth);
+            cellHeight = Math.Abs(cellHeight);
 
             int w = (colNum * cellWidth) + colNum + 1;
             int h = (rowNum * cellHeight) + rowNum + 1;
@@ -372,6 +370,15 @@ namespace Demo_PersistenceFileStream
             a[0] = char.ToUpper(a[0]);
 
             return new string(a);
+        }
+
+        /// <summary>
+        /// Prompt a ConsoleKey
+        /// </summary>
+        /// <returns></returns>
+        public ConsoleKey PromptKey()
+        {
+            return Console.ReadKey(true).Key;
         }
 
         #endregion

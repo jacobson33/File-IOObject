@@ -9,6 +9,10 @@ namespace Demo_PersistenceFileStream
 {
     class Program
     {
+        /// <summary>
+        /// Main function
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             string textFilePath = "Data\\Data.txt";
@@ -19,10 +23,14 @@ namespace Demo_PersistenceFileStream
             while (true)
             {
                 DisplayMenu(textFilePath);
-            }
+            }           
         }
 
 
+        /// <summary>
+        /// Initialize the date file
+        /// </summary>
+        /// <param name="textFilePath"></param>
         static void InitializeHighScores(string textFilePath)
         {
             List<HighScore> highScoresClassList = new List<HighScore>();
@@ -36,6 +44,10 @@ namespace Demo_PersistenceFileStream
             WriteHighScoresToTextFile(highScoresClassList, textFilePath);
         }
 
+        /// <summary>
+        /// Display the Data
+        /// </summary>
+        /// <param name="highScoreClassList"></param>
         static void DisplayHighScores(List<HighScore> highScoreClassList)
         {
             foreach (HighScore player in highScoreClassList)
@@ -47,6 +59,11 @@ namespace Demo_PersistenceFileStream
             Console.ReadKey(true);
         }
 
+        /// <summary>
+        /// Writes the Data to the file
+        /// </summary>
+        /// <param name="highScoreClassLIst"></param>
+        /// <param name="dataFile"></param>
         static void WriteHighScoresToTextFile(List<HighScore> highScoreClassLIst, string dataFile)
         {
             string highScoreString;
@@ -63,6 +80,11 @@ namespace Demo_PersistenceFileStream
             File.WriteAllLines(dataFile, highScoresStringListWrite);
         }
 
+        /// <summary>
+        /// Reads the data from the file
+        /// </summary>
+        /// <param name="dataFile"></param>
+        /// <returns></returns>
         static List<HighScore> ReadHighScoresFromTextFile(string dataFile)
         {
             const char delineator = ',';
@@ -80,7 +102,7 @@ namespace Demo_PersistenceFileStream
             {
                 Console.WriteLine(e.Message);
             }
-
+            
 
             foreach (string highScoreString in highScoresStringList)
             {
@@ -93,6 +115,10 @@ namespace Demo_PersistenceFileStream
             return highScoresClassList;
         }
 
+        /// <summary>
+        /// Displays the main menu
+        /// </summary>
+        /// <param name="path"></param>
         static void DisplayMenu(string path)
         {
             ConsoleMenu view = new ConsoleMenu(120, 40);
@@ -101,7 +127,7 @@ namespace Demo_PersistenceFileStream
             view.DrawMenu(28, 15, new List<string>() { "1. Display All Records", "2. Add a Record", "3. Delete a Record", "4. Update a Record", "5. Clear all Records", "6. Exit" });
 
             //get user choice
-            switch (Console.ReadKey(true).Key)
+            switch (view.PromptKey())
             {
                 case ConsoleKey.D1:
                     DisplayAllRecords(path);
@@ -125,6 +151,10 @@ namespace Demo_PersistenceFileStream
             }
         }
 
+        /// <summary>
+        /// Displays the data
+        /// </summary>
+        /// <param name="path"></param>
         static void DisplayAllRecords(string path)
         {
             //open file
@@ -135,6 +165,11 @@ namespace Demo_PersistenceFileStream
             DisplayHighScores(scores);
         }
 
+        /// <summary>
+        /// Deletes data from the file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="view"></param>
         static void DeleteRecord(string path, ConsoleMenu view)
         {
             //read file
@@ -151,26 +186,11 @@ namespace Demo_PersistenceFileStream
             WriteHighScoresToTextFile(scores, path);
         }
 
-        static void AddRecord(string path, ConsoleMenu view)
-        {
-            //read file
-            List<HighScore> scores = ReadHighScoresFromTextFile(path);
-
-            //prompt user to add player's name
-            view.DrawPromptBox("Enter player's name: ");
-            string PlayerName = Console.ReadLine();
-
-            //prompt user to add player's score
-            view.DrawPromptBox("Enter player's score: ");
-            string score = Console.ReadLine();
-
-
-
-            scores.Add(new HighScore(PlayerName, score));
-
-
-        }
-
+        /// <summary>
+        /// Updates data from the file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="view"></param>
         static void UpdateRecord(string path, ConsoleMenu view)
         {
             int newScore;
