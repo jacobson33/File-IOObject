@@ -374,6 +374,15 @@ namespace Demo_PersistenceFileStream
             return new string(a);
         }
 
+        /// <summary>
+        /// Prompt a ConsoleKey
+        /// </summary>
+        /// <returns></returns>
+        public ConsoleKey PromptKey()
+        {
+            return Console.ReadKey(true).Key;
+        }
+
         #endregion
     }
 }

@@ -127,7 +127,7 @@ namespace Demo_PersistenceFileStream
             view.DrawMenu(28, 15, new List<string>() { "1. Display All Records", "2. Add a Record", "3. Delete a Record", "4. Update a Record", "5. Clear all Records", "6. Exit" });
 
             //get user choice
-            switch (Console.ReadKey(true).Key)
+            switch (view.PromptKey())
             {
                 case ConsoleKey.D1:
                     DisplayAllRecords(path);
