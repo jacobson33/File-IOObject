@@ -162,10 +162,10 @@ namespace Demo_PersistenceFileStream
         {
             //█, ═, ║, ╩, ╦, ╠, ╣, ╔, ╗, ╚, ╝, ╬
 
-            if (rowNum <= 0) rowNum = 1;
-            if (colNum <= 0) colNum = 1;
-            if (cellWidth <= 0) cellWidth = 1;
-            if (cellHeight <= 0) cellHeight = 1;
+            Math.Abs(rowNum);
+            Math.Abs(colNum);
+            Math.Abs(cellWidth);
+            Math.Abs(cellHeight);
 
             int w = (colNum * cellWidth) + colNum + 1;
             int h = (rowNum * cellHeight) + rowNum + 1;
