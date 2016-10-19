@@ -102,7 +102,6 @@ namespace Demo_PersistenceFileStream
         /// <param name="path"></param>
         static void DisplayMenu(string path)
         {
-            int selection;
             ConsoleMenu view = new ConsoleMenu(120, 40);
 
                 //display menu
@@ -115,7 +114,6 @@ namespace Demo_PersistenceFileStream
                     DisplayAllRecords(path);
                         break;
                     case ConsoleKey.D2:
-                    selection = 2;
                         break;
                     case ConsoleKey.D3:
                     DeleteRecord(path, view);
@@ -124,7 +122,6 @@ namespace Demo_PersistenceFileStream
                     UpdateRecord(path, view);
                         break;
                     case ConsoleKey.D5:
-                    selection = 5;
                         break;
                     case ConsoleKey.D6:
                     Environment.Exit(1);
