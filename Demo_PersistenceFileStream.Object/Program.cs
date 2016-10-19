@@ -9,6 +9,10 @@ namespace Demo_PersistenceFileStream
 {
     class Program
     {
+        /// <summary>
+        /// Main function
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             string textFilePath = "Data\\Data.txt";
@@ -23,6 +27,10 @@ namespace Demo_PersistenceFileStream
         }
 
 
+        /// <summary>
+        /// Initialize the date file
+        /// </summary>
+        /// <param name="textFilePath"></param>
         static void InitializeHighScores(string textFilePath)
         {
             List<HighScore> highScoresClassList = new List<HighScore>();
@@ -36,6 +44,10 @@ namespace Demo_PersistenceFileStream
             WriteHighScoresToTextFile(highScoresClassList, textFilePath);
         }
 
+        /// <summary>
+        /// Display the Data
+        /// </summary>
+        /// <param name="highScoreClassList"></param>
         static void DisplayHighScores(List<HighScore> highScoreClassList)
         {
             foreach (HighScore player in highScoreClassList)
@@ -47,6 +59,11 @@ namespace Demo_PersistenceFileStream
             Console.ReadKey(true);
         }
 
+        /// <summary>
+        /// Writes the Data to the file
+        /// </summary>
+        /// <param name="highScoreClassLIst"></param>
+        /// <param name="dataFile"></param>
         static void WriteHighScoresToTextFile(List<HighScore> highScoreClassLIst, string dataFile)
         {
             string highScoreString;
@@ -63,6 +80,11 @@ namespace Demo_PersistenceFileStream
             File.WriteAllLines(dataFile, highScoresStringListWrite);
         }
 
+        /// <summary>
+        /// Reads the data from the file
+        /// </summary>
+        /// <param name="dataFile"></param>
+        /// <returns></returns>
         static List<HighScore> ReadHighScoresFromTextFile(string dataFile)
         {
             const char delineator = ',';
@@ -93,6 +115,10 @@ namespace Demo_PersistenceFileStream
             return highScoresClassList;
         }
 
+        /// <summary>
+        /// Displays the main menu
+        /// </summary>
+        /// <param name="path"></param>
         static void DisplayMenu(string path)
         {
             ConsoleMenu view = new ConsoleMenu(120, 40);
@@ -125,6 +151,10 @@ namespace Demo_PersistenceFileStream
             }
         }
 
+        /// <summary>
+        /// Displays the data
+        /// </summary>
+        /// <param name="path"></param>
         static void DisplayAllRecords(string path)
         {
             //open file
@@ -135,6 +165,11 @@ namespace Demo_PersistenceFileStream
             DisplayHighScores(scores);
         }
 
+        /// <summary>
+        /// Deletes data from the file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="view"></param>
         static void DeleteRecord(string path, ConsoleMenu view)
         {
             //read file
@@ -151,6 +186,11 @@ namespace Demo_PersistenceFileStream
             WriteHighScoresToTextFile(scores, path);
         }
 
+        /// <summary>
+        /// Updates data from the file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="view"></param>
         static void UpdateRecord(string path, ConsoleMenu view)
         {
             int newScore;
