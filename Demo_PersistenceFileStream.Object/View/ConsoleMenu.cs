@@ -101,11 +101,9 @@ namespace Demo_PersistenceFileStream
             l--;
 
             if (horizontal) //Horizontal
-                for (int i = 0; i < l; i++)
-                    WriteAt(x + i, y, c);
+                for (int i = 0; i < l; i++) WriteAt(x + i, y, c);
             else    //Vertical
-                for (int i = 0; i < l; i++)
-                    WriteAt(x, y + i, c);
+                for (int i = 0; i < l; i++) WriteAt(x, y + i, c);
         }
 
         /// <summary>
@@ -164,10 +162,10 @@ namespace Demo_PersistenceFileStream
         {
             //█, ═, ║, ╩, ╦, ╠, ╣, ╔, ╗, ╚, ╝, ╬
 
-            if (rowNum <= 0) rowNum++;
-            if (colNum <= 0) colNum++;
-            if (cellWidth <= 0) cellWidth++;
-            if (cellHeight <= 0) cellHeight++;
+            if (rowNum <= 0) rowNum = 1;
+            if (colNum <= 0) colNum = 1;
+            if (cellWidth <= 0) cellWidth = 1;
+            if (cellHeight <= 0) cellHeight = 1;
 
             int w = (colNum * cellWidth) + colNum + 1;
             int h = (rowNum * cellHeight) + rowNum + 1;
