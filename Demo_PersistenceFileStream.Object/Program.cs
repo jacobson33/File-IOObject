@@ -19,7 +19,7 @@ namespace Demo_PersistenceFileStream
             while (true)
             {
                 DisplayMenu(textFilePath);
-            }           
+            }
         }
 
 
@@ -80,7 +80,7 @@ namespace Demo_PersistenceFileStream
             {
                 Console.WriteLine(e.Message);
             }
-            
+
 
             foreach (string highScoreString in highScoresStringList)
             {
@@ -149,6 +149,26 @@ namespace Demo_PersistenceFileStream
 
             //update file
             WriteHighScoresToTextFile(scores, path);
+        }
+
+        static void AddRecord(string path, ConsoleMenu view)
+        {
+            //read file
+            List<HighScore> scores = ReadHighScoresFromTextFile(path);
+
+            //prompt user to add player's name
+            view.DrawPromptBox("Enter player's name: ");
+            string PlayerName = Console.ReadLine();
+
+            //prompt user to add player's score
+            view.DrawPromptBox("Enter player's score: ");
+            string score = Console.ReadLine();
+
+
+
+            scores.Add(new HighScore(PlayerName, score));
+
+
         }
 
         static void UpdateRecord(string path, ConsoleMenu view)
