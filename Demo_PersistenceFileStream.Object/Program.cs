@@ -133,6 +133,7 @@ namespace Demo_PersistenceFileStream
                     DisplayAllRecords(path);
                     break;
                 case ConsoleKey.D2:
+                    AddRecord(path, view);
                     break;
                 case ConsoleKey.D3:
                     DeleteRecord(path, view);
@@ -163,6 +164,36 @@ namespace Demo_PersistenceFileStream
             Console.Clear();
 
             DisplayHighScores(scores);
+        }
+
+        /// <summary>
+        /// Adds record the list
+        /// </summary>
+        /// <param name="path"></param>
+        static void AddRecord(string path, ConsoleMenu view)
+        {
+            int addScore;
+            bool playerFound = false;
+
+            //open file
+            List<HighScore> scores = ReadHighScoresFromTextFile(path);
+
+            //prompt user to add a player name
+            view.DrawPromptBox("Enter Player's Name: ");
+            string addPlayer = Console.ReadLine();
+
+            //prompt user to add a score
+            view.DrawPromptBox("Enter Player's Score: ");
+            string response = Console.ReadLine();
+            if (int.TryParse(response, out addScore)) // Try to parse the string as an integer
+            {
+                scores.Add(new HighScore(addPlayer, addScore));
+            }
+            else
+            {
+                Console.WriteLine("Not an integer!");
+            }
+
         }
 
         /// <summary>
