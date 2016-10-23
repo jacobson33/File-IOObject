@@ -13,7 +13,7 @@ namespace Demo_PersistenceFileStream
         /// Main function
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             string textFilePath = "Data\\Data.txt";
 
@@ -149,22 +149,22 @@ namespace Demo_PersistenceFileStream
             Console.Clear();
 
             //-------------------
-            int gridRowNum = 20;
+            int gridRowNum = scores.Count;
             int gridColNum = 2;
             int gridCellWidth = 20;
             int gridCellHeight = 1;
             int gridX = 120 / 2 - ((gridColNum * gridCellWidth) + gridColNum + 1) / 2;
-            int gridY = 40 / 2 - ((gridRowNum * gridCellHeight) + gridRowNum + 1) / 2;
+            int gridY = 3;
 
             view.DrawGrid(gridX, gridY, gridRowNum, gridColNum, gridCellWidth, gridCellHeight);
 
             //-------------------
             foreach (HighScore player in scores)
             {
-                Console.WriteLine("Player: {0}\tScore: {1}", player.PlayerName, player.PlayerScore);
+                //Console.WriteLine("Player: {0}\tScore: {1}", player.PlayerName, player.PlayerScore);
             }
 
-            Console.WriteLine("Press any key to continue.");
+            //Console.WriteLine("Press any key to continue.");
             Console.ReadKey(true);
         }
 
