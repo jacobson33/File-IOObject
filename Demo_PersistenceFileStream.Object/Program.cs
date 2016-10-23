@@ -19,10 +19,11 @@ namespace Demo_PersistenceFileStream
 
             // initialize high scores and write to text file
             InitializeHighScores(textFilePath);
+            List<HighScore> scores = ReadHighScoresFromTextFile(textFilePath);
 
             while (true)
             {
-                DisplayMenu(textFilePath);
+                DisplayMenu(textFilePath, scores);
             }           
         }
 
@@ -104,7 +105,7 @@ namespace Demo_PersistenceFileStream
         /// Displays the main menu
         /// </summary>
         /// <param name="path"></param>
-        static void DisplayMenu(string path)
+        static void DisplayMenu(string path, List<HighScore> scores)
         {
             ConsoleMenu view = new ConsoleMenu(120, 40);
 
@@ -115,7 +116,7 @@ namespace Demo_PersistenceFileStream
             switch (view.PromptKey())
             {
                 case ConsoleKey.D1:
-                    DisplayAllRecords(path, view);
+                    DisplayAllRecords(path, scores, view);
                     break;
                 case ConsoleKey.D2:
                     AddRecord(path, view);
@@ -141,12 +142,11 @@ namespace Demo_PersistenceFileStream
         /// Displays the data
         /// </summary>
         /// <param name="path"></param>
-        static void DisplayAllRecords(string path, ConsoleMenu view)
+        static void DisplayAllRecords(string path, List<HighScore> scores, ConsoleMenu view)
         {
-            //open file
-            List<HighScore> scores = ReadHighScoresFromTextFile(path);
-
             Console.Clear();
+
+            if (scores.Count >= 18) Console.BufferHeight *= 2;
 
             //-------------------
             int gridRowNum = scores.Count;
@@ -159,13 +159,16 @@ namespace Demo_PersistenceFileStream
             view.DrawGrid(gridX, gridY, gridRowNum, gridColNum, gridCellWidth, gridCellHeight);
 
             //-------------------
+            int i = 1;
             foreach (HighScore player in scores)
             {
-                //Console.WriteLine("Player: {0}\tScore: {1}", player.PlayerName, player.PlayerScore);
+                view.WriteAt(gridX + 1, gridY + 1*i, player.PlayerName);
+                view.WriteAt(gridX + gridCellWidth + 2, gridY + 1*i, $"{player.PlayerScore}");
+                i+=2;
             }
-
-            //Console.WriteLine("Press any key to continue.");
+            
             Console.ReadKey(true);
+            Console.BufferHeight = 40;
         }
 
         /// <summary>
