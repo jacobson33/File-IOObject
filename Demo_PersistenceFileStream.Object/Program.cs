@@ -45,21 +45,6 @@ namespace Demo_PersistenceFileStream
         }
 
         /// <summary>
-        /// Display the Data
-        /// </summary>
-        /// <param name="highScoreClassList"></param>
-        static void DisplayHighScores(List<HighScore> highScoreClassList)
-        {
-            foreach (HighScore player in highScoreClassList)
-            {
-                Console.WriteLine("Player: {0}\tScore: {1}", player.PlayerName, player.PlayerScore);
-            }
-
-            Console.WriteLine("Press any key to continue.");
-            Console.ReadKey(true);
-        }
-
-        /// <summary>
         /// Writes the Data to the file
         /// </summary>
         /// <param name="highScoreClassLIst"></param>
@@ -130,7 +115,7 @@ namespace Demo_PersistenceFileStream
             switch (view.PromptKey())
             {
                 case ConsoleKey.D1:
-                    DisplayAllRecords(path);
+                    DisplayAllRecords(path, view);
                     break;
                 case ConsoleKey.D2:
                     AddRecord(path, view);
@@ -156,14 +141,31 @@ namespace Demo_PersistenceFileStream
         /// Displays the data
         /// </summary>
         /// <param name="path"></param>
-        static void DisplayAllRecords(string path)
+        static void DisplayAllRecords(string path, ConsoleMenu view)
         {
             //open file
             List<HighScore> scores = ReadHighScoresFromTextFile(path);
 
             Console.Clear();
 
-            DisplayHighScores(scores);
+            //-------------------
+            int gridRowNum = 20;
+            int gridColNum = 2;
+            int gridCellWidth = 20;
+            int gridCellHeight = 1;
+            int gridX = 120 / 2 - ((gridColNum * gridCellWidth) + gridColNum + 1) / 2;
+            int gridY = 40 / 2 - ((gridRowNum * gridCellHeight) + gridRowNum + 1) / 2;
+
+            view.DrawGrid(gridX, gridY, gridRowNum, gridColNum, gridCellWidth, gridCellHeight);
+
+            //-------------------
+            foreach (HighScore player in scores)
+            {
+                Console.WriteLine("Player: {0}\tScore: {1}", player.PlayerName, player.PlayerScore);
+            }
+
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey(true);
         }
 
         /// <summary>
